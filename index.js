@@ -33,12 +33,12 @@ app.get('/posts/:id', async (req, res) => {
         return res.json(JSON.parse(cachedPost))
     }
     const response = await axios.get(`https://jsonplaceholder.typicode.com/posts/${id}`)
-    const cachedRes = await client.set(`post-${id}`, JSON.stringify(response.data))
+    const cachedRes = await client.set(`post-${id}`, JSON.stringify(response.data),"EX",  10)
     console.log(cachedRes)
     return res.json(response.data);
 
 })
 
 app.listen(8080, () => {
-    console.log('Listening on po%rt 8080')
+    console.log('Listening on port 8080')
 })
